@@ -130,8 +130,11 @@ jobs:
         with:
           toolchain: nightly
 
+      - name: Install package verification dependencies
+        run: sudo apt-get update && sudo apt-get install -y libudev-dev
+
       - name: Install cargo-release
-        run: cargo install cargo-release --version 0.25.18 --locked
+        run: cargo +stable install cargo-release --version 1.1.1 --locked
 
       - name: Authenticate with crates.io
         id: auth
@@ -145,7 +148,7 @@ jobs:
 
           echo "Publishing crates"
           out_file=$(mktemp)
-          if cargo release publish --workspace --exclude avm --allow-branch "*" --no-confirm --execute 2>&1 | tee "$out_file"; then
+          if cargo +nightly release publish --workspace --exclude avm --allow-branch "*" --no-confirm --execute 2>&1 | tee "$out_file"; then
             exit 0
           fi
           # cargo-release 1.1.1 exits non-zero with "no packages selected" when every
