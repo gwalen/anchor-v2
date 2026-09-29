@@ -24,16 +24,16 @@ profile = [
 ]
 
 [dependencies]
-litesvm = "=0.13.1"
+litesvm = "=0.17.0"
 # Re-exported so scaffold tests import `Keypair` / `Signer` / `Message` / ...
 # via `anchor_v2_testing` and don't need direct deps on each.
 solana-keypair = "3.0.1"
-solana-message = "3.0.1"
+solana-message = "4.5.0"
 solana-signer = "3.0.0"
-solana-transaction = "3.0.2"
-# LiteSVM 0.13.1's callbacks use the Agave 4.0 API.
-solana-program-runtime = { version = "=4.0.0", optional = true }
-solana-transaction-context = { version = "=4.0.0", optional = true }
+solana-transaction = { version = "4.2.0", features = ["wincode"] }
+# LiteSVM 0.17.0's callbacks use the Agave 4.3 API.
+solana-program-runtime = { version = "=4.3.0", optional = true }
+solana-transaction-context = { version = "=4.3.0", optional = true }
 
 # Nested workspace so dep resolution is independent of the outer anchor
 # workspace — litesvm's transitive `agave-*` pins conflict with
